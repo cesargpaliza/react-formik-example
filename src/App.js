@@ -36,33 +36,17 @@ function App() {
   return (
     <form onSubmit={formik.handleSubmit}>
       <label>Nombre</label>
-      <input
-        name='name'
-        tyle='text'
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values.name}
+      <input type='text' {...formik.getFieldProps('name')}
       />
       {formik.errors.name && formik.touched.name ? formik.errors.name : null }
       <br/>      
       <label>Apellido</label>
-      <input
-        name='lastname'
-        tyle='text'
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values.lastname}
+      <input type='text' {...formik.getFieldProps('lastname')}
         />
       {formik.errors.lastname && formik.touched.lastname ? formik.errors.lastname : null }
       <br/>
       <label>Email</label>
-      <input
-        name='email'
-        type='text'
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values.email}
-      />
+      <input type='text' {...formik.getFieldProps('email') } />
       {formik.errors.email && formik.touched.email ? formik.errors.email : null }
       <br/>
       <button type="submit">Enviar</button>
