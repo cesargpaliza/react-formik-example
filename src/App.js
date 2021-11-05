@@ -1,4 +1,8 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { Formik, Form, ErrorMessage } from 'formik'
+import Select from './components/Select'
+import Checkbox from './components/Checkbox'
+import TextInput from './components/TextInput'
+import Radio from './components/Radio'
 
 const validate = (values) => {
     const errors = {}
@@ -20,6 +24,10 @@ const validate = (values) => {
         errors.email = 'El email es muy corto'
     }
 
+    if (!values.radio) {
+        errors.radio = 'Requerido'
+    }
+
     return errors
 }
 
@@ -28,15 +36,46 @@ function App() {
 
     return (
         <Formik
-            initialValues={{ name: '', lastname: '', email: '' }}
+            initialValues={{ 
+                            name: '', 
+                            lastname: '', 
+                            email: '', 
+                            profesion: '',
+                            radio: '' 
+                        }}
             validate={validate}
-            onSubmit={values => console.log(values)}
+            onSubmit={values => console.log( values)}
         >
             <Form>
-                <label>Nombre</label>
-                <Field name='name' type='text' />
-                <ErrorMessage name='name' />
-                <br />
+                {/* Esto: */}
+                <TextInput name='name' label='Nombre'/>
+                {/* Reemplaza a: */}
+                {/*
+                    <label>Nombre</label>
+                    <Field name='name' type='text' />
+                    <ErrorMessage name='name' />                
+                */}
+                <Checkbox name='conditions'>
+                    Acepta los terminos y condiciones
+                </Checkbox>
+
+                <TextInput name='lastname' label='Apellido'/>
+                <TextInput name='email' label='Email'/>
+
+                <Select  label="Profesion" name="profesion">
+                    <option value="">Selecciones una profesion</option>
+                    <option value="programador">Programador</option>
+                    <option value="tester">Tester</option>
+                    <option value="pm">PM</option>
+                </Select>
+
+                <Radio name='radio' value='valor1' label="Valor 1"/>
+                <Radio name='radio' value='valor2' label="Valor 2"/>
+                <Radio name='radio' value='valor3' label="Valor 3"/>
+                <ErrorMessage name='radio'/>
+                
+
+                {/* <br />
                 <label>Apellido</label>
                 <Field name='lastname' type='text' />
                 <ErrorMessage name='lastname' />
@@ -44,7 +83,8 @@ function App() {
                 <label>Email</label>
                 <Field name='email' type='text' />
                 <ErrorMessage name='email' />
-                <br />
+                <br /> */}
+
                 <button type="submit">Enviar</button>
             </Form>
             
